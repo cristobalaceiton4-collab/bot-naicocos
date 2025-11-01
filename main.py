@@ -2,14 +2,14 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv <-- ELIMINADO
 from datetime import timedelta
 from collections import defaultdict
 import asyncio
 
 # Las librerías de música (yt_dlp, spotipy) han sido eliminadas.
 
-load_dotenv()
+# load_dotenv() <-- ELIMINADO
 
 # --- CONFIGURACIÓN DE CANALES ---
 WELCOME_CHANNEL_ID = 1433467091574329417
@@ -71,7 +71,7 @@ async def on_voice_state_update(member, before, after):
         if channel:
             embed = discord.Embed(
                 description=
-                "<:kickappicon:1433975381416742963>  **STREAM ON** <:kickappicon:1433975381416742963>\n\n***LINK DEL DIRECTO EN KICK: *** [LINK KICK](https://kick.com/naicocos)\n\n<@&1433987445841723524>",
+                "<:kickappicon:1433975381416742963>  **STREAM ON** <:kickappicon:1433975381416742963>\n\n***LINK DEL DIRECTO EN KICK: *** [LINK KICK](https://kick.com/naicocos)\n\n<@&1433987445841723524>",
                 color=0x00FF00)
             embed.set_image(
                 url=
@@ -280,7 +280,7 @@ async def teststream(interaction: discord.Interaction):
     if channel:
         embed = discord.Embed(
             description=
-            "<:kickappicon:1433975381416742963>  **STREAM ON** <:kickappicon:1433975381416742963>\n\n***LINK DEL DIRECTO EN KICK: *** [LINK KICK](https://kick.com/naicocos)\n\n<@&1433987445841723524>",
+            "<:kickappicon:1433975381416742963>  **STREAM ON** <:kickappicon:1433975381416742963>\n\n***LINK DEL DIRECTO EN KICK: *** [LINK KICK](https://kick.com/naicocos)\n\n<@&1433987445841723524>",
             color=0x00FF00)
         embed.set_image(
             url=
@@ -312,11 +312,14 @@ async def permission_error(interaction: discord.Interaction, error):
 
 # --- EJECUCIÓN DEL BOT ---
 if __name__ == '__main__':
+    # Obtiene el token directamente de la variable de entorno de Render
     token = os.getenv('DISCORD_TOKEN')
     if not token:
+        # Esto solo se imprime si la variable no existe en Render o localmente
         print(
-            "❌ Error: No se encontró DISCORD_TOKEN en las variables de entorno"
+            "❌ Error: No se encontró DISCORD_TOKEN en las variables de entorno."
         )
-        print("Por favor, configura tu token de Discord en el archivo .env")
+        print("Asegúrate de haberla configurado en el panel 'Environment' de Render.")
     else:
+        # Inicia el bot usando el token seguro de Render
         bot.run(token)
